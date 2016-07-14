@@ -5,7 +5,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-base
-Version:        1.8.2
+Version:        1.9.1
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -264,6 +264,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiosink.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiosrc.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/streamvolume.h
+%{_includedir}/gstreamer-%{majorminor}/gst/audio/audio-resampler.h
 %dir %{_includedir}/gstreamer-%{majorminor}/gst/fft
 %{_includedir}/gstreamer-%{majorminor}/gst/fft/fft.h
 %{_includedir}/gstreamer-%{majorminor}/gst/fft/gstfft.h
@@ -392,8 +393,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %changelog
 
+* Fri Jul 08 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 1.9.1-1
+- Updated to 1.9.1
+
 * Thu Jun 23 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 1.8.2-1
-- Updated to 1.8.2-1
+- Updated to 1.8.2
 
 * Wed Apr 20 2016 David Vásquez <davidjeremias82 AT gmail DOT com> 1.8.1-1
 - Updated to 1.8.1
