@@ -2,7 +2,7 @@
  
 Summary:        GStreamer streaming media framework base plugins
  
-Version:        1.11.1
+Version:        1.11.2
  
 License:        LGPLv2+
  
