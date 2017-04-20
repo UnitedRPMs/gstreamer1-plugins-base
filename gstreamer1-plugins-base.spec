@@ -5,8 +5,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-base
-Version:        1.11.2
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.11.90
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
@@ -396,6 +396,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Thu Apr 20 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.90-2
+- Updated to 1.11.90-2
 
 * Fri Feb 24 2017 David Vásquez <davidjeremias82 AT gmail DOT com> 1.11.2-1
 - Updated to 1.11.2
