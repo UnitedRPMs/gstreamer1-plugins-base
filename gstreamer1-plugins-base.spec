@@ -203,7 +203,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstaudiorate.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaudioresample.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaudiotestsrc.so
-%{_libdir}/gstreamer-%{majorminor}/libgstencodebin.so
+# {_libdir}/gstreamer-%{majorminor}/libgstencodebin.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstplayback.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsubparse.so
@@ -215,6 +215,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstvideotestsrc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvolume.so
 %{_libdir}/gstreamer-%{majorminor}/libgstpbtypes.so
+%{_libdir}/gstreamer-%{majorminor}/libgstencoding.so
+%{_libdir}/gstreamer-%{majorminor}/libgstrawparse.so
 
 # base plugins with dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstalsa.so
