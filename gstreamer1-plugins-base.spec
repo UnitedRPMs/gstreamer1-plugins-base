@@ -248,6 +248,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/gstreamer-%{majorminor}/gst/app/app.h
 %{_includedir}/gstreamer-%{majorminor}/gst/app/gstappsink.h
 %{_includedir}/gstreamer-%{majorminor}/gst/app/gstappsrc.h
+%{_includedir}/gstreamer-%{majorminor}/gst/app/app-enumtypes.h
 %dir %{_includedir}/gstreamer-%{majorminor}/gst/audio
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/audio-channels.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/audio-format.h
@@ -323,6 +324,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/gstreamer-%{majorminor}/gst/tag/gsttagmux.h
 %{_includedir}/gstreamer-%{majorminor}/gst/tag/tag.h
 %{_includedir}/gstreamer-%{majorminor}/gst/tag/xmpwriter.h
+%{_includedir}/gstreamer-%{majorminor}/gst/tag/tag-enumtypes.h
 %dir %{_includedir}/gstreamer-%{majorminor}/gst/video
 %{_includedir}/gstreamer-%{majorminor}/gst/video/colorbalance.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/colorbalancechannel.h
