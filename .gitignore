@@ -4,3 +4,4 @@ RPMS/*
 SPECS/*
 SRPMS/*
 gst-plugins-base*.tar.xz 
+.directory
