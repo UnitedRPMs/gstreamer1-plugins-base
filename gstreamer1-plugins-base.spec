@@ -103,6 +103,7 @@ for the GStreamer Base Plugins library.
   --with-package-origin='http://download.fedoraproject.org' \
   --enable-experimental \
   --enable-gtk-doc \
+  --enable-silent-rules \
   --enable-orc
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
