@@ -100,7 +100,7 @@ for the GStreamer Base Plugins library.
 %build
 %configure \
   --with-package-name='Fedora GStreamer-plugins-base package' \
-  --with-package-origin='http://download.fedoraproject.org' \
+  --with-package-origin='https://unitedrpms.github.io/' \
   --enable-experimental \
   --enable-gtk-doc \
   --enable-silent-rules \
