@@ -1,12 +1,8 @@
 %global         majorminor      1.0
 
-#global gitrel     140
-#global gitcommit  c52adc8fcccf691754ab762e667fffb5465c3354
-#global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
-
 Name:           gstreamer1-plugins-base
-Version:        1.12.4
-Release:        7%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.13.1
+Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
@@ -98,12 +94,16 @@ for the GStreamer Base Plugins library.
 
 
 %build
+
 %configure \
-  --with-package-name='Fedora GStreamer-plugins-base package' \
+  --with-package-name='UnitedRpms GStreamer-plugins-base package' \
   --with-package-origin='https://unitedrpms.github.io/' \
   --enable-experimental \
-  --enable-gtk-doc \
+  --disable-gtk-doc \
   --enable-silent-rules \
+  --disable-static \
+  --disable-failing-tests \
+  --disable-examples \
   --enable-orc
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
@@ -119,6 +119,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
   make -C %{_builddir}/gst-plugins-base-%{version}/gst-libs DESTDIR=%{buildroot} install
   make -C %{_builddir}/gst-plugins-base-%{version}/ext DESTDIR=%{buildroot} install
+  make -C %{_builddir}/gst-plugins-base-%{version}/docs DESTDIR=%{buildroot} install
 
 # Register as an AppStream component to be visible in the software center
 #
@@ -189,7 +190,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/girepository-1.0/GstAllocators-%{majorminor}.typelib
 %{_libdir}/girepository-1.0/GstApp-%{majorminor}.typelib
 %{_libdir}/girepository-1.0/GstAudio-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstFft-%{majorminor}.typelib
+#{_libdir}/girepository-1.0/GstFft-{majorminor}.typelib
 %{_libdir}/girepository-1.0/GstPbutils-%{majorminor}.typelib
 %{_libdir}/girepository-1.0/GstRtp-%{majorminor}.typelib
 %{_libdir}/girepository-1.0/GstRtsp-%{majorminor}.typelib
@@ -401,6 +402,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Tue Feb 27 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.13.1-7  
+- Updated to 1.13.1-7
 
 * Fri Dec 08 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> - 1.12.4-7
 - Updated to 1.12.4-7
