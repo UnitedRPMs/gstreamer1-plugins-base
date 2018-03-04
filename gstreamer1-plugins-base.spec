@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-plugins-base
-Version:        1.13.1
+Version:        1.13.90
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -219,6 +219,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstpbtypes.so
 %{_libdir}/gstreamer-%{majorminor}/libgstencoding.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrawparse.so
+%{_libdir}/gstreamer-%{majorminor}/libgstaudiomixer.so
 
 # base plugins with dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstalsa.so
@@ -366,6 +367,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/gstreamer-%{majorminor}/gst/pbutils/gstaudiovisualizer.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideoaffinetransformationmeta.h
 
+%{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstphysmemory.h
+%{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudioaggregator.h
+%{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiostreamalign.h
+
 %{_libdir}/libgstallocators-%{majorminor}.so
 %{_libdir}/libgstaudio-%{majorminor}.so
 %{_libdir}/libgstriff-%{majorminor}.so
@@ -378,13 +383,14 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libgstfft-%{majorminor}.so
 %{_libdir}/libgstapp-%{majorminor}.so
 
+
 %dir %{_datadir}/gst-plugins-base/%{majorminor}/
 %{_datadir}/gst-plugins-base/%{majorminor}/license-translations.dict
 
 %{_datadir}/gir-1.0/GstAllocators-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstApp-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstAudio-%{majorminor}.gir
-%{_datadir}/gir-1.0/GstFft-%{majorminor}.gir
+#{_datadir}/gir-1.0/GstFft-{majorminor}.gir
 %{_datadir}/gir-1.0/GstPbutils-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstRtp-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstRtsp-%{majorminor}.gir
@@ -403,8 +409,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %changelog
 
-* Tue Feb 27 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.13.1-7  
-- Updated to 1.13.1-7
+* Sun Mar 04 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.13.90-7  
+- Updated to 1.13.90-7
 
 * Fri Dec 08 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> - 1.12.4-7
 - Updated to 1.12.4-7
