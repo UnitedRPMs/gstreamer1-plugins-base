@@ -29,8 +29,13 @@ BuildRequires:  libXv-devel
 BuildRequires:  orc-devel >= 0.4.18
 BuildRequires:  pango-devel
 BuildRequires:  pkgconfig
-
 BuildRequires:  chrpath
+
+# New features
+BuildRequires:	mesa-libEGL-devel 
+BuildRequires:	mesa-libGL-devel
+BuildRequires:  mesa-libGLES-devel
+BuildRequires:  mesa-libGLU-devel
 
 # documentation
 BuildRequires:  gtk-doc >= 1.3
@@ -163,6 +168,43 @@ EOF
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
+# Remove rpath.
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstximagesink.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideotestsrc.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpango.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvorbis.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstogg.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudiorate.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstalsa.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstpbutils-1.0.so.*
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvolume.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstaudio-1.0.so.*
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstapp.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstencoding.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstrawparse.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideoscale.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstplayback.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcdparanoia.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstriff-1.0.so.*
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstxvimagesink.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgsttheora.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgsttypefindfunctions.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudioresample.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstlibvisual.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudioconvert.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideoconvert.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideorate.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudiotestsrc.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstadder.so
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-device-monitor-1.0
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-discoverer-1.0
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudiomixer.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstopengl.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstgl-1.0.so.0.1390.0
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstsdp-1.0.so.0.1390.0
+
 
 %post -p /sbin/ldconfig
 
@@ -185,6 +227,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libgstrtsp-%{majorminor}.so.*
 %{_libdir}/libgstsdp-%{majorminor}.so.*
 %{_libdir}/libgstapp-%{majorminor}.so.*
+%{_libdir}/libgstgl-%{majorminor}.so.*
 
 # gobject-introspection files
 %{_libdir}/girepository-1.0/GstAllocators-%{majorminor}.typelib
@@ -197,6 +240,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/girepository-1.0/GstSdp-%{majorminor}.typelib
 %{_libdir}/girepository-1.0/GstTag-%{majorminor}.typelib
 %{_libdir}/girepository-1.0/GstVideo-%{majorminor}.typelib
+%{_libdir}/girepository-1.0/GstGL-%{majorminor}.typelib
 
 # base plugins without external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstadder.so
@@ -231,6 +275,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstvorbis.so
 %{_libdir}/gstreamer-%{majorminor}/libgstximagesink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstxvimagesink.so
+%{_libdir}/gstreamer-%{majorminor}/libgstopengl.so
 
 
 %files tools
@@ -370,7 +415,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstphysmemory.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudioaggregator.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiostreamalign.h
+%{_includedir}/gstreamer-%{majorminor}/gst/gl/
+%{_libdir}/gstreamer-1.0/include/gst/gl/gstglconfig.h
 
+%{_libdir}/libgstgl-%{majorminor}.so
 %{_libdir}/libgstallocators-%{majorminor}.so
 %{_libdir}/libgstaudio-%{majorminor}.so
 %{_libdir}/libgstriff-%{majorminor}.so
@@ -397,10 +445,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_datadir}/gir-1.0/GstSdp-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstTag-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstVideo-%{majorminor}.gir
+%{_datadir}/gir-1.0/GstGL-%{majorminor}.gir
 
 # pkg-config files
 %{_libdir}/pkgconfig/*.pc
-
 
 %files devel-docs
 %doc %{_datadir}/gtk-doc/html/gst-plugins-base-libs-%{majorminor}
