@@ -28,6 +28,7 @@ BuildRequires:  libvorbis-devel >= 1.0
 BuildRequires:  libXv-devel
 BuildRequires:  orc-devel >= 0.4.18
 BuildRequires:  pango-devel
+BuildRequires:	opus-devel
 BuildRequires:  pkgconfig
 BuildRequires:  chrpath
 
@@ -36,6 +37,9 @@ BuildRequires:	mesa-libEGL-devel
 BuildRequires:	mesa-libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libGLU-devel
+
+# for autogen.sh
+BuildRequires:  automake gettext-devel libtool
 
 # documentation
 BuildRequires:  gtk-doc >= 1.3
@@ -99,12 +103,15 @@ for the GStreamer Base Plugins library.
 
 
 %build
+# die rpath (method of modifying libtool fails here)
+NOCONFIGURE=1 \
+./autogen.sh
 
 %configure \
   --with-package-name='UnitedRpms GStreamer-plugins-base package' \
   --with-package-origin='https://unitedrpms.github.io/' \
   --enable-experimental \
-  --disable-gtk-doc \
+  --enable-gtk-doc \
   --enable-silent-rules \
   --disable-static \
   --disable-failing-tests \
@@ -114,17 +121,11 @@ for the GStreamer Base Plugins library.
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
-make %{?_smp_mflags} V=0
-
-sed -e 's/^SUBDIRS_EXT =.*/SUBDIRS_EXT =/' -i Makefile
+%make_build V=0
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
-
-  make -C %{_builddir}/gst-plugins-base-%{version}/gst-libs DESTDIR=%{buildroot} install
-  make -C %{_builddir}/gst-plugins-base-%{version}/ext DESTDIR=%{buildroot} install
-  make -C %{_builddir}/gst-plugins-base-%{version}/docs DESTDIR=%{buildroot} install
 
 # Register as an AppStream component to be visible in the software center
 #
@@ -276,7 +277,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstsdp-1.0.so.0.1390.0
 %{_libdir}/gstreamer-%{majorminor}/libgstximagesink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstxvimagesink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopengl.so
-
+%{_libdir}/gstreamer-%{majorminor}/libgstopus.so
 
 %files tools
 %{_bindir}/gst-discoverer-%{majorminor}
