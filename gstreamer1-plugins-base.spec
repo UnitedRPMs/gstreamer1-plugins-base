@@ -203,8 +203,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudiomixer.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstopengl.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstgl-1.0.so.0.1390.0
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstsdp-1.0.so.0.1390.0
+
 
 
 %post -p /sbin/ldconfig
@@ -412,6 +411,19 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstsdp-1.0.so.0.1390.0
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/audio-quantize.h
 %{_includedir}/gstreamer-%{majorminor}/gst/pbutils/gstaudiovisualizer.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideoaffinetransformationmeta.h
+
+
+%{_includedir}/gstreamer-%{majorminor}/gst/allocators/allocators-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/app/app-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/audio/audio-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/fft/fft-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/pbutils/pbutils-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/riff/riff-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/rtp/rtp-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/rtsp/rtsp-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/sdp/sdp-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/tag/tag-prelude.h
+%{_includedir}/gstreamer-%{majorminor}/gst/video/video-prelude.h
 
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstphysmemory.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudioaggregator.h
