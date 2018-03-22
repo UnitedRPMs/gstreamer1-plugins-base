@@ -7,13 +7,8 @@ Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
-%if 0%{?gitrel}
-# git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-base
-# cd gst-plugins-base; git reset --hard %{gitcommit}; ./autogen.sh; make; make distcheck
-Source0:        gst-plugins-base-%{version}.tar.xz
-%else
-Source0:        http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-%{version}.tar.xz
-%endif
+
+Source0:        https://github.com/GStreamer/gst-plugins-base/archive/%{version}.tar.gz
 
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gobject-introspection-devel >= 1.31.1
@@ -31,6 +26,7 @@ BuildRequires:  pango-devel
 BuildRequires:	opus-devel
 BuildRequires:  pkgconfig
 BuildRequires:  chrpath
+BuildRequires:	git
 
 # New features
 BuildRequires:	mesa-libEGL-devel 
@@ -99,8 +95,8 @@ for the GStreamer Base Plugins library.
 
 
 %prep
-%setup -q -n gst-plugins-base-%{version}
-
+%autosetup -n gst-plugins-base-%{version}
+rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common 
 
 %build
 # die rpath (method of modifying libtool fails here)
