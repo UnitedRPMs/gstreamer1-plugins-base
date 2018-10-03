@@ -2,7 +2,7 @@
 
 Name:           gstreamer1-plugins-base
 Version:        1.14.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
@@ -465,6 +465,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 
 
 %changelog
+
+* Tue Sep 18 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.14.3-8  
+- Automatic Mass Rebuild
 
 * Mon Sep 17 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.14.3-7 
 - Updated to 1.14.3-7
