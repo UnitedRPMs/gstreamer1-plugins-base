@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-plugins-base
-Version:        1.14.4
+Version:        1.15.1
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -33,6 +33,7 @@ BuildRequires:	mesa-libEGL-devel
 BuildRequires:	mesa-libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libGLU-devel
+BuildRequires:	wayland-devel
 
 # for autogen.sh
 BuildRequires:  automake gettext-devel libtool
@@ -225,18 +226,21 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_libdir}/libgstapp-%{majorminor}.so.*
 %{_libdir}/libgstgl-%{majorminor}.so.*
 
-# gobject-introspection files
-%{_libdir}/girepository-1.0/GstAllocators-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstApp-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstAudio-%{majorminor}.typelib
-#{_libdir}/girepository-1.0/GstFft-{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstPbutils-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstRtp-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstRtsp-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstSdp-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstTag-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstVideo-%{majorminor}.typelib
-%{_libdir}/girepository-1.0/GstGL-%{majorminor}.typelib
+# Wayland
+%{_libdir}/gstreamer-%{majorminor}/libgstcompositor.so
+%{_libdir}/gstreamer-%{majorminor}/libgstoverlaycomposition.so
+
+# Allocator
+%{_libdir}/girepository-1.0/GstAllocators-1.0.typelib
+%{_libdir}/girepository-1.0/GstApp-1.0.typelib
+%{_libdir}/girepository-1.0/GstAudio-1.0.typelib
+%{_libdir}/girepository-1.0/GstGL-1.0.typelib
+%{_libdir}/girepository-1.0/GstPbutils-1.0.typelib
+%{_libdir}/girepository-1.0/GstRtp-1.0.typelib
+%{_libdir}/girepository-1.0/GstRtsp-1.0.typelib
+%{_libdir}/girepository-1.0/GstSdp-1.0.typelib
+%{_libdir}/girepository-1.0/GstTag-1.0.typelib
+%{_libdir}/girepository-1.0/GstVideo-1.0.typelib
 
 # base plugins without external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstadder.so
@@ -425,6 +429,13 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudioaggregator.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiostreamalign.h
 %{_includedir}/gstreamer-%{majorminor}/gst/gl/
+
+%{_includedir}/gstreamer-%{majorminor}/gst/audio/audio-buffer.h
+%{_includedir}/gstreamer-%{majorminor}/gst/rtp/gstrtpmeta.h
+%{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideoaggregator.h
+%{_includedir}/gstreamer-%{majorminor}/gst/video/video-anc.h
+
+
 %{_libdir}/gstreamer-1.0/include/gst/gl/gstglconfig.h
 
 %{_libdir}/libgstgl-%{majorminor}.so
@@ -456,6 +467,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_datadir}/gir-1.0/GstVideo-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstGL-%{majorminor}.gir
 
+
 # pkg-config files
 %{_libdir}/pkgconfig/*.pc
 
@@ -463,8 +475,10 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %doc %{_datadir}/gtk-doc/html/gst-plugins-base-libs-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gst-plugins-base-plugins-%{majorminor}
 
-
 %changelog
+
+* Thu Jan 17 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.15.1-7  
+- Update to 1.15.1
 
 * Wed Oct 03 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.14.4-7  
 - Updated to 1.14.4-7
