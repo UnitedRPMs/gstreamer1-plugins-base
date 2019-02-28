@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-plugins-base
-Version:        1.15.1
+Version:        1.15.2
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -35,10 +35,17 @@ BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:	wayland-devel
 
+#BuildRequires:	meson 
+#BuildRequires:	cmake
+#BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+#BuildRequires:	pkgconfig(graphene-1.0)
+#BuildRequires:	pkgconfig(libjpeg)
+
 # for autogen.sh
 BuildRequires:  automake gettext-devel libtool
 
 # documentation
+BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:  gtk-doc >= 1.3
 
 Requires:       iso-codes
@@ -119,10 +126,13 @@ NOCONFIGURE=1 \
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
 %make_build V=0
+#meson
+#meson_build
+
 
 %install
 %make_install
-
+#meson_install
 
 # Register as an AppStream component to be visible in the software center
 #
@@ -476,6 +486,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %doc %{_datadir}/gtk-doc/html/gst-plugins-base-plugins-%{majorminor}
 
 %changelog
+
+* Wed Feb 27 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.15.2-7
+- Updated to 1.15.2-7
 
 * Thu Jan 17 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.15.1-7  
 - Update to 1.15.1
