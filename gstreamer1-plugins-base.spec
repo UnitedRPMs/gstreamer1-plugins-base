@@ -45,8 +45,10 @@ BuildRequires:	wayland-devel
 BuildRequires:  automake gettext-devel libtool
 
 # documentation
+%if 0%{?fedora} >= 29
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:  gtk-doc >= 1.3
+%endif
 
 Requires:       iso-codes
 
@@ -90,7 +92,7 @@ Requires:       %{name} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files
 for developing applications that use %{name}.
 
-
+%if 0%{?fedora} >= 29
 %package devel-docs
 Summary:        Developer documentation for GStreamer Base plugins library
 Requires:       %{name} = %{version}-%{release}
@@ -100,7 +102,7 @@ BuildArch:      noarch
 %description devel-docs
 This %{name}-devel-docs package contains developer documentation
 for the GStreamer Base Plugins library.
-
+%endif
 
 %prep
 %autosetup -n gst-plugins-base-%{version}
@@ -115,7 +117,9 @@ NOCONFIGURE=1 \
   --with-package-name='UnitedRpms GStreamer-plugins-base package' \
   --with-package-origin='https://unitedrpms.github.io/' \
   --enable-experimental \
+%if 0%{?fedora} >= 29
   --enable-gtk-doc \
+%endif
   --enable-silent-rules \
   --disable-static \
   --disable-failing-tests \
@@ -481,9 +485,11 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 # pkg-config files
 %{_libdir}/pkgconfig/*.pc
 
+%if 0%{?fedora} >= 29
 %files devel-docs
 %doc %{_datadir}/gtk-doc/html/gst-plugins-base-libs-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gst-plugins-base-plugins-%{majorminor}
+%endif
 
 %changelog
 
