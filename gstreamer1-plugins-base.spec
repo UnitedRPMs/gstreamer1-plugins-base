@@ -27,6 +27,7 @@ BuildRequires:	opus-devel
 BuildRequires:  pkgconfig
 BuildRequires:  chrpath
 BuildRequires:	git
+BuildRequires:	make
 
 # New features
 BuildRequires:	mesa-libEGL-devel 
