@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-plugins-base
-Version:        1.15.2
+Version:        1.16.0
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -492,6 +492,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %endif
 
 %changelog
+
+* Fri Apr 19 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.16.0-7
+- Updated to 1.16.0-7
 
 * Wed Feb 27 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.15.2-7
 - Updated to 1.15.2-7
