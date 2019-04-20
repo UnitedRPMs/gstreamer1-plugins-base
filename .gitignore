@@ -3,5 +3,5 @@ BUILDROOT/*
 RPMS/*
 SPECS/*
 SRPMS/*
-gst-plugins-base*.tar.xz 
+*.tar.xz 
 .directory
