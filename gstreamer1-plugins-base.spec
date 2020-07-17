@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-plugins-base
-Version:        1.16.2
+Version:        1.17.2
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -28,19 +28,19 @@ BuildRequires:  pkgconfig
 BuildRequires:  chrpath
 BuildRequires:	git
 BuildRequires:	make
+BuildRequires:	meson
+BuildRequires:	cmake
+BuildRequires:	pkgconfig(graphene-gobject-1.0)
+BuildRequires:	libjpeg-turbo-devel 
 
 # New features
+BuildRequires:	libvorbisidec-devel
 BuildRequires:	mesa-libEGL-devel 
 BuildRequires:	mesa-libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:	wayland-devel
 
-#BuildRequires:	meson 
-#BuildRequires:	cmake
-#BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
-#BuildRequires:	pkgconfig(graphene-1.0)
-#BuildRequires:	pkgconfig(libjpeg)
 
 # for autogen.sh
 BuildRequires:  automake gettext-devel libtool
@@ -110,34 +110,16 @@ for the GStreamer Base Plugins library.
 rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common 
 
 %build
-# die rpath (method of modifying libtool fails here)
-NOCONFIGURE=1 \
-./autogen.sh
+export PYTHON=%{_bindir}/python3
 
-%configure \
-  --with-package-name='UnitedRpms GStreamer-plugins-base package' \
-  --with-package-origin='https://unitedrpms.github.io/' \
-  --enable-experimental \
-%if 0%{?fedora} >= 29
-  --enable-gtk-doc \
-%endif
-  --enable-silent-rules \
-  --disable-static \
-  --disable-failing-tests \
-  --disable-examples \
-  --enable-orc
 
-  # https://bugzilla.gnome.org/show_bug.cgi?id=655517
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+%meson -D package-name="UnitedRpms GStreamer-plugins-base package" -D package-origin="https://unitedrpms.github.io/" -D doc=disabled -D gtk_doc=disabled -D tests=disabled -D examples=disabled -D orc=enabled 
 
-%make_build V=0
-#meson
-#meson_build
+%meson_build
 
 
 %install
-%make_install
-#meson_install
+%meson_install 
 
 # Register as an AppStream component to be visible in the software center
 #
@@ -292,6 +274,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_libdir}/gstreamer-%{majorminor}/libgstxvimagesink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopengl.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopus.so
+%{_libdir}/gstreamer-%{majorminor}/libgstivorbisdec.so
 
 %files tools
 %{_bindir}/gst-discoverer-%{majorminor}
@@ -450,7 +433,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideoaggregator.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-anc.h
 
-
+%{_includedir}/gstreamer-%{majorminor}/gst/video/video-hdr.h
 %{_libdir}/gstreamer-1.0/include/gst/gl/gstglconfig.h
 
 %{_libdir}/libgstgl-%{majorminor}.so
@@ -486,13 +469,15 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 # pkg-config files
 %{_libdir}/pkgconfig/*.pc
 
-%if 0%{?fedora} >= 29
+
 %files devel-docs
-%doc %{_datadir}/gtk-doc/html/gst-plugins-base-libs-%{majorminor}
-%doc %{_datadir}/gtk-doc/html/gst-plugins-base-plugins-%{majorminor}
-%endif
+%doc AUTHORS ChangeLog NEWS README RELEASE
 
 %changelog
+
+* Fri Jul 10 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.17.2-7
+- Updated to 1.17.2
+- Enabled libvorbisidec
 
 * Wed Dec 04 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.16.2-7
 - Updated to 1.16.2-7
