@@ -15,6 +15,7 @@ BuildRequires:  gobject-introspection-devel >= 1.31.1
 BuildRequires:  iso-codes-devel
 
 BuildRequires:  alsa-lib-devel
+BuildRequires:	gcc-c++
 BuildRequires:  cdparanoia-devel
 BuildRequires:  libogg-devel >= 1.0
 BuildRequires:  libtheora-devel >= 1.1
