@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-plugins-base
-Version:        1.17.2
+Version:        1.17.90
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -239,6 +239,10 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_libdir}/girepository-1.0/GstSdp-1.0.typelib
 %{_libdir}/girepository-1.0/GstTag-1.0.typelib
 %{_libdir}/girepository-1.0/GstVideo-1.0.typelib
+#
+%{_libdir}/girepository-1.0/GstGLEGL-1.0.typelib
+%{_libdir}/girepository-1.0/GstGLWayland-1.0.typelib
+%{_libdir}/girepository-1.0/GstGLX11-1.0.typelib
 
 # base plugins without external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstadder.so
@@ -465,6 +469,10 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_datadir}/gir-1.0/GstTag-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstVideo-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstGL-%{majorminor}.gir
+#
+%{_datadir}/gir-1.0/GstGLEGL-1.0.gir
+%{_datadir}/gir-1.0/GstGLWayland-1.0.gir
+%{_datadir}/gir-1.0/GstGLX11-1.0.gir
 
 
 # pkg-config files
@@ -475,6 +483,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %doc AUTHORS ChangeLog NEWS README RELEASE
 
 %changelog
+
+* Tue Aug 25 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.17.90-7
+- Updated to 1.17.90
 
 * Fri Jul 10 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.17.2-7
 - Updated to 1.17.2
