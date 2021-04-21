@@ -1,7 +1,10 @@
+# Force out of source build
+%undefine __cmake_in_source_build
+
 %global         majorminor      1.0
 
 Name:           gstreamer1-plugins-base
-Version:        1.18.3
+Version:        1.18.4
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -15,7 +18,7 @@ BuildRequires:  gobject-introspection-devel >= 1.31.1
 BuildRequires:  iso-codes-devel
 
 BuildRequires:  alsa-lib-devel
-BuildRequires:	gcc-c++
+BuildRequires:  gcc
 BuildRequires:  cdparanoia-devel
 BuildRequires:  libogg-devel >= 1.0
 BuildRequires:  libtheora-devel >= 1.1
@@ -30,6 +33,7 @@ BuildRequires:  chrpath
 BuildRequires:	git
 BuildRequires:	make
 BuildRequires:	meson
+BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	pkgconfig(graphene-gobject-1.0)
 BuildRequires:	libjpeg-turbo-devel 
@@ -114,13 +118,14 @@ rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common
 export PYTHON=%{_bindir}/python3
 
 
-%meson -D package-name="UnitedRpms GStreamer-plugins-base package" -D package-origin="https://unitedrpms.github.io/" -D doc=disabled -D gtk_doc=disabled -D tests=disabled -D examples=disabled -D orc=enabled 
+meson build --prefix=/usr --libdir=/usr/lib64 --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc -D package-name="UnitedRpms GStreamer-plugins-base package" -D package-origin="https://unitedrpms.github.io/" -D doc=disabled -D tests=disabled -D examples=disabled -D orc=enabled 
 
-%meson_build
+
+%meson_build -C build
 
 
 %install
-%meson_install 
+%meson_install -C build
 
 # Register as an AppStream component to be visible in the software center
 #
@@ -165,6 +170,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 # Remove rpath.
+# Remove rpath.
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstximagesink.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideotestsrc.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpango.so
@@ -198,8 +204,6 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudiomixer.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstopengl.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes.so
-
-
 
 %post -p /sbin/ldconfig
 
@@ -432,6 +436,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudioaggregator.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiostreamalign.h
 %{_includedir}/gstreamer-%{majorminor}/gst/gl/
+%{_includedir}/GL/wglext.h
 
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/audio-buffer.h
 %{_includedir}/gstreamer-%{majorminor}/gst/rtp/gstrtpmeta.h
@@ -483,6 +488,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %doc AUTHORS ChangeLog NEWS README RELEASE
 
 %changelog
+
+* Mon Apr 19 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.4-7
+- Updated to 1.18.4
 
 * Mon Jan 25 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.3-7
 - Updated to 1.18.3
