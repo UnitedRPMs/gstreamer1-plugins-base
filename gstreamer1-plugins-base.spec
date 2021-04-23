@@ -118,7 +118,7 @@ rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common
 export PYTHON=%{_bindir}/python3
 
 
-meson build --prefix=/usr --libdir=/usr/lib64 --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc -D package-name="UnitedRpms GStreamer-plugins-base package" -D package-origin="https://unitedrpms.github.io/" -D doc=disabled -D tests=disabled -D examples=disabled -D orc=enabled 
+meson build --prefix=/usr --libdir=%{_libdir} --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc -D package-name="UnitedRpms GStreamer-plugins-base package" -D package-origin="https://unitedrpms.github.io/" -D doc=disabled -D tests=disabled -D examples=disabled -D orc=enabled 
 
 
 %meson_build -C build
