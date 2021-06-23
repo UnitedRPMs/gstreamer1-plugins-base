@@ -4,7 +4,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-plugins-base
-Version:        1.18.4
+Version:        1.19.1
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -444,6 +444,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-anc.h
 
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-hdr.h
+%{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideocodecalphameta.h
 %{_libdir}/gstreamer-1.0/include/gst/gl/gstglconfig.h
 
 %{_libdir}/libgstgl-%{majorminor}.so
@@ -488,6 +489,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %doc AUTHORS ChangeLog NEWS README RELEASE
 
 %changelog
+
+* Sun Jun 20 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.19.1-7
+- Updated to 1.19.1
 
 * Mon Apr 19 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.4-7
 - Updated to 1.18.4
