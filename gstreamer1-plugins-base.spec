@@ -1,24 +1,31 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
+%define _legacy_common_support 1
+
 %global         majorminor      1.0
+%global         meson_conf      meson --buildtype=release --prefix=/usr --libdir=%{_libdir} --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc
+
+%global debug_package %{nil}
 
 Name:           gstreamer1-plugins-base
-Version:        1.19.2
+Version:        1.19.3
 Release:        7%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 
-Source0:        https://github.com/GStreamer/gst-plugins-base/archive/%{version}.tar.gz
-
+Source0:        http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-%{version}.tar.xz
+	
+BuildRequires:  meson >= 0.48.0
+BuildRequires:  gcc git chrpath cmake 
+BuildRequires:  gcc-c++
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gobject-introspection-devel >= 1.31.1
 BuildRequires:  iso-codes-devel
-
+ 
 BuildRequires:  alsa-lib-devel
-BuildRequires:  gcc
 BuildRequires:  cdparanoia-devel
 BuildRequires:  libogg-devel >= 1.0
 BuildRequires:  libtheora-devel >= 1.1
@@ -27,25 +34,29 @@ BuildRequires:  libvorbis-devel >= 1.0
 BuildRequires:  libXv-devel
 BuildRequires:  orc-devel >= 0.4.18
 BuildRequires:  pango-devel
-BuildRequires:	opus-devel
 BuildRequires:  pkgconfig
-BuildRequires:  chrpath
-BuildRequires:	git
-BuildRequires:	make
-BuildRequires:	meson
-BuildRequires:	gcc-c++
-BuildRequires:	cmake
-BuildRequires:	pkgconfig(graphene-gobject-1.0)
-BuildRequires:	libjpeg-turbo-devel 
-
-# New features
-BuildRequires:	libvorbisidec-devel
-BuildRequires:	mesa-libEGL-devel 
-BuildRequires:	mesa-libGL-devel
+BuildRequires:  opus-devel
+BuildRequires:  gdk-pixbuf2-devel
+BuildRequires:  gtk3-devel
+BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  libglvnd-devel
+ 
+# for autogen.sh
+BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libGLU-devel
-BuildRequires:	wayland-devel
-
+BuildRequires:  mesa-libEGL-devel
+BuildRequires:  wayland-devel
+BuildRequires:  egl-wayland-devel
+BuildRequires:  graphene-devel
+# pkgconfig-style deps specifically searched-for by autotools/configure
+BuildRequires: pkgconfig(wayland-client) >= 1.0
+BuildRequires: pkgconfig(wayland-cursor) >= 1.0
+BuildRequires: pkgconfig(wayland-egl) >= 9.0
+BuildRequires: pkgconfig(wayland-protocols) >= 1.15
+ 
+# New features
+BuildRequires:	libvorbisidec-devel
 
 # for autogen.sh
 BuildRequires:  automake gettext-devel libtool
@@ -57,7 +68,6 @@ BuildRequires:  gtk-doc >= 1.3
 %endif
 
 Requires:       iso-codes
-
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -115,17 +125,13 @@ for the GStreamer Base Plugins library.
 rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common 
 
 %build
-export PYTHON=%{_bindir}/python3
+%meson_conf _build -D package-name="UnitedRpms GStreamer-plugins-base package" -D package-origin="https://unitedrpms.github.io/" -D doc=disabled -D tests=disabled -D examples=disabled -D orc=enabled -D tremor=disabled -D introspection=enabled   \
 
 
-meson build --prefix=/usr --libdir=%{_libdir} --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc -D package-name="UnitedRpms GStreamer-plugins-base package" -D package-origin="https://unitedrpms.github.io/" -D doc=disabled -D tests=disabled -D examples=disabled -D orc=enabled 
-
-
-%meson_build -C build
-
+%meson_build -C _build
 
 %install
-%meson_install -C build
+%meson_install -C _build 
 
 # Register as an AppStream component to be visible in the software center
 #
@@ -283,7 +289,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_libdir}/gstreamer-%{majorminor}/libgstxvimagesink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopengl.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopus.so
-%{_libdir}/gstreamer-%{majorminor}/libgstivorbisdec.so
+#{_libdir}/gstreamer-%{majorminor}/libgstivorbisdec.so
 
 %files tools
 %{_bindir}/gst-discoverer-%{majorminor}
@@ -460,7 +466,6 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %{_libdir}/libgstfft-%{majorminor}.so
 %{_libdir}/libgstapp-%{majorminor}.so
 
-
 %dir %{_datadir}/gst-plugins-base/%{majorminor}/
 %{_datadir}/gst-plugins-base/%{majorminor}/license-translations.dict
 
@@ -489,6 +494,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstpbtypes
 %doc AUTHORS ChangeLog NEWS README RELEASE
 
 %changelog
+
+* Wed Nov 17 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.19.3-7
+- Updated to 1.19.3
 
 * Mon Oct 04 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.19.2-7
 - Updated to 1.19.2
